@@ -1,5 +1,5 @@
 body {
-    height: 95vh;
+    height: 98vh;
     margin: 0;
     margin-top: 2vh;
     width: 100vw;
@@ -31,6 +31,7 @@ body {
     padding-right: 5vw;
     height: 10vh;
     justify-content: space-between;
+    align-items: center;
 }
 
 #scoreContainer {
@@ -53,15 +54,60 @@ body {
 
 #shieldContainer {
     width: 90vw;
-    margin-left: 5vw;
-    margin-right:5vw;
+    margin: 5vh 5vw;
     display: flex;
     justify-content: space-between;
+}
+
+#alienContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 40vh;
+    padding-left: 10vw;
+    padding-right: 10vw;
+}
+
+#spriteContainer {
+    width: 100vw;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+}
+
+.alien {
+    width: 5vw;
+    height: 6vh;
+}
+
+.a1 {
+    background: url(imgs/Alien4.png);
+    background-size: cover;
+    background-position: center;
+    margin-left: 1.135vw;
+    margin-right: 1.135vw;
+}
+
+.a2 {
+    background: url(imgs/Alien2.png);
+    background-size: cover;
+    background-position: center;
+    margin-left: 1.135vw;
+    margin-right: 1.135vw;
+}
+
+.a3 {
+    background: url(imgs/Alien1.png);
+    background-size: cover;
+    background-position: center;
+    margin-left: 1.135vw;
+    margin-right: 1.135vw;
 }
 
 .shield {
     width: 12vw;
     height: 10vw;    
     background-color: #33FF00;
-    border-radius: 2rem;
+    border-radius: 1rem;
 }
