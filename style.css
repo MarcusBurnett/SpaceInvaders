@@ -14,6 +14,7 @@ body {
 }
 
 #sprite {
+    position: absolute;
     width: 5vw;
     height: 3.3vw;
 }
