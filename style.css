@@ -1,0 +1,66 @@
+body {
+    height: 95vh;
+    margin: 0;
+    width: 100vw;
+    font-family: 'Audiowide', cursive;
+    font-size: 0.8rem;
+    background: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#sprite {
+    width: 5vw;
+    height: 3.3vw;
+}
+
+.life {
+    width: 5vw;
+    height: 3.3vw;
+    margin: 0.5vw;
+}
+
+#header {
+    display: flex;
+    width: 100%;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    height: 10vh;
+    justify-content: space-between;
+}
+
+#scoreContainer {
+    margin-left: 3vw;
+    align-items: center;
+
+}
+
+#lives {
+    display: flex;
+    align-items: center;
+    width: auto;
+    justify-content: space-between;
+    margin-right: 3vw;
+}
+
+#lives h1 {
+    margin-right: 2vw;
+}
+
+#shieldContainer {
+    width: 90vw;
+    margin-left: 5vw;
+    margin-right:5vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.shield {
+    width: 12vw;
+    height: 10vw;    
+    background-color: #33FF00;
+    border-radius: 2rem;
+}
