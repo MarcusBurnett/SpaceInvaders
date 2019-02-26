@@ -7,9 +7,9 @@
 
 /// store reference to sprite's position and element
 var sprite = {
-x: 550,
+x: 47.5,
 // y: null,
-speedMultiplier: 2,
+speedMultiplier: 1,
 element: document.getElementById("sprite")
 };
 
@@ -37,8 +37,8 @@ var moveSprite = function(dx, dy){
   
 sprite.x += (dx||0) * sprite.speedMultiplier;
 sprite.y += (dy||0) * sprite.speedMultiplier;
-sprite.element.style.left = sprite.x + 'px';
-sprite.element.style.top = sprite.y + 'px';
+sprite.element.style.left = sprite.x + 'vw';
+sprite.element.style.top = sprite.y + 'vw';
 console.log('alien position' + sprite.x)
 };
 
@@ -46,10 +46,10 @@ console.log('alien position' + sprite.x)
 var detectSpriteMovement = function(){
   //restrict alien to stay on screen
 if (( keys[keys.LEFT] ) && (sprite.x > 0)) {
-  moveSprite(-5, 0);
+  moveSprite(-0.5, 0);
 }
-if (( keys[keys.RIGHT] ) && (sprite.x<980) ){
-  moveSprite(5, 0);
+if (( keys[keys.RIGHT] ) && (sprite.x<95) ){
+  moveSprite(0.5, 0);
 }
 
 };
@@ -60,4 +60,4 @@ moveSprite();
 /// game loop
 setInterval(function(){
 detectSpriteMovement();
-}, 1000/30);
+}, 1000/60);
