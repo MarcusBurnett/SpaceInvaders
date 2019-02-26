@@ -13,7 +13,7 @@ speedMultiplier: 2,
 element: document.getElementById("sprite")
 };
 
-/// key detection (better to use addEventListener, but this will do)
+/// need to update to use addeventlistener
 document.body.onkeyup = 
 document.body.onkeydown = function(e){
   // document.body.addEventListener('onkeydown', (e)=>{
@@ -39,14 +39,16 @@ sprite.x += (dx||0) * sprite.speedMultiplier;
 sprite.y += (dy||0) * sprite.speedMultiplier;
 sprite.element.style.left = sprite.x + 'px';
 sprite.element.style.top = sprite.y + 'px';
+console.log('alien position' + sprite.x)
 };
 
 /// sprite control
 var detectSpriteMovement = function(){
-if ( keys[keys.LEFT] ) {
+  //restrict alien to stay on screen
+if (( keys[keys.LEFT] ) && (sprite.x > 0)) {
   moveSprite(-5, 0);
 }
-if ( keys[keys.RIGHT] ) {
+if (( keys[keys.RIGHT] ) && (sprite.x<980) ){
   moveSprite(5, 0);
 }
 
