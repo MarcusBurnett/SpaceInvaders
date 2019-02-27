@@ -1,13 +1,13 @@
   /// store key codes and currently pressed ones
-  var keys = {};
+  let keys = {};
 
   keys.LEFT = 37;
   keys.RIGHT = 39;
 
 
 /// store reference to sprite's position and element
-var sprite = {
-x: 47.5,
+let sprite = {
+x: 10,
 // y: null,
 speedMultiplier: 1,
 element: document.getElementById("sprite")
@@ -16,7 +16,6 @@ element: document.getElementById("sprite")
 /// need to update to use addeventlistener
 document.body.onkeyup = 
 document.body.onkeydown = function(e){
-  // document.body.addEventListener('onkeydown', (e)=>{
     
     
     if (e.preventDefault) { 
@@ -27,23 +26,21 @@ document.body.onkeydown = function(e){
     }
     var kc = e.keyCode || e.which;
     keys[kc] = e.type == 'keydown';
-  // });
-
-
+  
 };
 
 /// sprite movement update
-var moveSprite = function(dx, dy){
+const moveSprite = (dx, dy) =>{
   
 sprite.x += (dx||0) * sprite.speedMultiplier;
 sprite.y += (dy||0) * sprite.speedMultiplier;
 sprite.element.style.left = sprite.x + 'vw';
 sprite.element.style.top = sprite.y + 'vw';
-console.log('alien position' + sprite.x)
+console.log('ship position' + sprite.x)
 };
 
 /// sprite control
-var detectSpriteMovement = function(){
+const detectSpriteMovement = () =>{
   //restrict alien to stay on screen
 if (( keys[keys.LEFT] ) && (sprite.x > 0)) {
   moveSprite(-0.5, 0);
