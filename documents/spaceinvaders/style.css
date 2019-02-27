@@ -1,0 +1,146 @@
+body {
+    height: 98vh;
+    margin: 2vh 0;
+    width: 100vw;
+    font-family: 'Audiowide', cursive;
+    font-size: 0.8rem;
+    background: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden
+}
+
+
+#spriteContainer {
+    position:relative;
+    width:100vw;
+    height:50px;
+}
+
+#sprite {
+    height: 3vw;
+    width: 4vw;
+}
+
+.life {
+    width: 5vw;
+    height: 3.3vw;
+    margin: 0.5vw;
+}
+
+#header {
+    display: flex;
+    width: 100%;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    height: 10vh;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#scoreContainer {
+    margin-left: 3vw;
+    align-items: center;
+
+}
+
+#lives {
+    display: flex;
+    align-items: center;
+    width: auto;
+    justify-content: space-between;
+    margin-right: 3vw;
+}
+
+#lives h1 {
+    margin-right: 2vw;
+}
+
+#shieldContainer {
+    width: 90vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    margin-bottom: 5vh;
+    margin-top: 50vh;
+    display: flex;
+    justify-content: space-around;
+}
+
+#alienContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 40vh;
+    width: 70vw;
+    position: relative;
+}
+
+.alien {
+    width: 4vw;
+    height: 5vh;
+    position: absolute;
+    bottom: 400px;
+}
+
+.a1 {
+    background: url(imgs/Alien4.png);
+    background-size: cover;
+    background-position: center;
+
+}
+
+.a2 {
+    background: url(imgs/Alien2.png);
+    background-size: cover;
+    background-position: center;
+    margin-left: 1.135vw;
+    margin-right: 1.135vw;
+}
+
+.a3 {
+    background: url(imgs/Alien1.png);
+    background-size: cover;
+    background-position: center;
+    margin-left: 1.135vw;
+    margin-right: 1.135vw;
+}
+
+.shield {
+    width: 12vw;
+    height: 8vw;    
+    background-color: #33FF00;
+    border-radius: 1rem;
+}
+
+#bullet {
+    position: absolute;
+    width: 0.5vw;
+    height: 1vh;
+    background: white;
+    /* display: none; */
+}
+
+/* .active {
+    animation: shoot 3s linear forwards;
+} */
+
+/* @keyframes alienMovementSide {
+    0% {left: 0vw;}
+    50% {left: 30vw;}
+    100% {left: 0vw}
+}
+
+@keyframes alienMovementDown {
+    0% {top: 10vw;}
+    100% {top: 12vw;}
+}
+
+@keyframes shoot {
+    0% { bottom: 40px;}
+    99.9% {bottom: 650px;}
+    100% { bottom: 39px;}
+} */
