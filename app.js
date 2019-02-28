@@ -1,4 +1,3 @@
-
 var spriteContainer = document.getElementById('spriteContainer');
 var alienContainer = document.getElementById('alienContainer')
 var aliens = document.querySelectorAll('.alien');
@@ -72,27 +71,29 @@ const moveBullet = (dx, dy) => {
 const detectBulletMovement = () => {
   //restrict alien to stay on screen
   if ((keys[keys.SPACE])) {
-    if(!bulletFired){
-    //call function that will decrease the bullet.y
-
-    var bulletMovement = setInterval(bulletFire, 50);
-
-    function bulletFire() {
-
-      if (bullet.y < 650) {
-
-        moveBullet(0, 0.5);
-      } else {
-        clearInterval(bulletMovement);
-        
-        bulletFired= false;
-
+    if (!bulletFired) {
+      //call function that will decrease the bullet.y
+      var flagFired = false;
+      if(!flagFired) {
+        var bulletMovement = setInterval(bulletFire, 1);
       }
+
+      function bulletFire() {
+
+        if (bullet.y < 650) {
+
+          moveBullet(0, 0.5);
+        } else {
+          clearInterval(bulletMovement);
+          bulletFired = false;
+          flagFired = false;
+        }
+        
+      }
+
+      bullet.y = 55
+
     }
-
-    bullet.y = 55
-
-  }
   }
 };
 
@@ -102,9 +103,8 @@ const detectBulletMovement = () => {
 moveBullet();
 /// game loop
 setInterval(function () {
-    detectBulletMovement();
-}, 1000 / 600);
-
+  detectBulletMovement();
+}, 80);
 
 
 

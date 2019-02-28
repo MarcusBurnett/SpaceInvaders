@@ -1,9 +1,8 @@
 body {
     height: 98vh;
-    margin: 0;
-    margin-top: 2vh;
+    margin: 2vh 0;
     width: 100vw;
-    font-family: 'Audiowide', cursive;
+    font-family: 'Audiowide';
     font-size: 0.8rem;
     background: black;
     color: white;
@@ -11,11 +10,19 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    overflow: hidden
+}
+
+
+#spriteContainer {
+    position:relative;
+    width:100vw;
+    height:50px;
 }
 
 #sprite {
-    width: 5vw;
-    height: 3.3vw;
+    height: 3vw;
+    width: 4vw;
 }
 
 .life {
@@ -54,39 +61,36 @@ body {
 
 #shieldContainer {
     width: 90vw;
-    margin: 5vh 5vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    margin-bottom: 5vh;
+    margin-top: 50vh;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 #alienContainer {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
     height: 40vh;
-    padding-left: 10vw;
-    padding-right: 10vw;
-}
-
-#spriteContainer {
-    width: 100vw;
-    height: 10vh;
-    display: flex;
-    justify-content: center;
+    width: 70vw;
+    position: relative;
 }
 
 .alien {
-    width: 5vw;
-    height: 6vh;
+    width: 4vw;
+    height: 5vh;
+    position: absolute;
+    bottom: 400px;
 }
 
 .a1 {
     background: url(imgs/Alien4.png);
     background-size: cover;
     background-position: center;
-    margin-left: 1.135vw;
-    margin-right: 1.135vw;
+
 }
 
 .a2 {
@@ -107,7 +111,16 @@ body {
 
 .shield {
     width: 12vw;
-    height: 10vw;    
+    height: 8vw;    
     background-color: #33FF00;
     border-radius: 1rem;
+}
+
+#bullet {
+    position: absolute;
+    width: 0.3vw;
+    height: 1vh;
+    background: white;
+    z-index: -1;
+    /* display: none; */
 }
