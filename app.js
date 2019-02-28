@@ -5,13 +5,13 @@ var newBullet = document.createElement("div");
 var bulletFired = false;
 newBullet.id = "bullet";
 
-// var alienRect = aliens[0].getBoundingClientRect();
+var alienRect = aliens[0].getBoundingClientRect();
 // var bulletRect = bullet.getBoundingClientRect();
 // var bulletBottom = bulletStyle.getPropertyValue('bottom');
 
 // console.log(bullet.getBoundingClientRect().top);
 // console.log(bullet.getBoundingClientRect().bottom);
-// console.log(alienRect.top, alienRect.right, alienRect.bottom, alienRect.left);
+console.log(alienRect.top, alienRect.right, alienRect.bottom, alienRect.left);
 // console.log(bulletRect.top, bulletRect.right, bulletRect.bottom, bulletRect.left);
 
 /// store key codes and currently pressed ones
@@ -40,10 +40,11 @@ var bullet = {
 /// need to update to use addeventlistener
 window.addEventListener('keyup', (e) => {
 
-  if (!bulletFired) {
+  if (event.keyCode === 32 && !bulletFired) {
 
     bulletFired = true;
     console.log(bulletFired)
+    bullet.element.style.left = sprite.x + 1.85 + 'vw';
 
     if (e.preventDefault) {
       e.preventDefault();
@@ -60,9 +61,9 @@ window.addEventListener('keyup', (e) => {
 /// sprite movement update
 const moveBullet = (dx, dy) => {
 
+
   bullet.x += (dx || 0) * bullet.speedMultiplier;
   bullet.y += (dy || 0) * bullet.speedMultiplier;
-  bullet.element.style.left = sprite.x + 1.85 + 'vw';
   bullet.element.style.bottom = bullet.y + 'px';
 
 };
@@ -73,10 +74,9 @@ const detectBulletMovement = () => {
   if ((keys[keys.SPACE])) {
     if (!bulletFired) {
       //call function that will decrease the bullet.y
-      var flagFired = false;
-      if (!flagFired) {
-        var bulletMovement = setInterval(bulletFire, 1);
-      }
+
+
+      var bulletMovement = setInterval(bulletFire, 1);
 
       function bulletFire() {
 
@@ -86,13 +86,11 @@ const detectBulletMovement = () => {
         } else {
           clearInterval(bulletMovement);
           bulletFired = false;
-          flagFired = false;
         }
 
       }
-
       bullet.y = 55
-
+      bullet.element.style.left = sprite.x + 1.85 + 'vw';
     }
   }
 };
@@ -104,9 +102,7 @@ moveBullet();
 /// game loop
 setInterval(function () {
   detectBulletMovement();
-}, 70);
-
-
+}, 20);
 
 
 
@@ -150,7 +146,6 @@ moveSprite();
 /// game loop
 setInterval(function () {
   detectSpriteMovement();
-  detectBulletMovement();
 }, 1000 / 60);
 
 
