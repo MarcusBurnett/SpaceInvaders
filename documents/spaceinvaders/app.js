@@ -1,8 +1,9 @@
-
 var spriteContainer = document.getElementById('spriteContainer');
 var alienContainer = document.getElementById('alienContainer')
 var aliens = document.querySelectorAll('.alien');
-let newBullet = document.createElement("div") ;   
+var newBullet = document.createElement("div");
+
+newBullet.id = "bullet";
 
 // var alienRect = aliens[0].getBoundingClientRect();
 // var bulletRect = bullet.getBoundingClientRect();
@@ -22,79 +23,81 @@ keys.SPACE = 32;
 
 /// store reference to sprite's position and element
 let sprite = {
-x: 47.5,
-// y: null,
-speedMultiplier: 1,
-element: document.getElementById("sprite")
+  x: 47.5,
+  // y: null,
+  speedMultiplier: 1,
+  element: document.getElementById("sprite")
 };
 
+var bullet = {
+  x: 47.5,
+  y: 55,
+  speedMultiplier: 1,
+  element: newBullet
+};
 
-    
-var spriteStyle = window.getComputedStyle(sprite.element);
+  console.log(newBullet)
+  console.log(bullet.element)
 
-console.log(spriteStyle.getPropertyValue('width'))
-console.log(spriteStyle.getPropertyValue('width'))
-console.log(sprite.x)
-    /// need to update to use addeventlistener
-    document.body.onkeypress = function(e){
-      
-      if (e.preventDefault) { 
-        e.preventDefault();
-      }
-      else {
-        e.returnValue = false; 
-      }
-      var kc = e.keyCode || e.which;
-      keys[kc] = e.type == 'keypress';
+/// need to update to use addeventlistener
 
-        newBullet.id = "bullet";
-        document.body.appendChild(newBullet);
-    
-    };
-    
-    /// sprite movement update
-    const moveBullet = (dx, dy) =>{
-        
-let bullet = {
-            x: 47.5,
-            y: 55,
-            speedMultiplier: 1,
-            element: document.getElementById("bullet")
-            };
-    
+  window.addEventListener('keyup', (e) => {
 
-    
-    bullet.x += (dx||0) * bullet.speedMultiplier;
-    bullet.y += (dy||0) * bullet.speedMultiplier;
-    bullet.element.style.left = sprite.x + 1.5 + 'vw';
-    bullet.element.style.top = bullet.y + 'vw';
-
-    };
-    
-    /// sprite control
-    const detectBulletMovement = () =>{
-    //restrict alien to stay on screen
-    if (( keys[keys.SPACE] )) {
-    
-    //call function that will decrease the bullet.y
-        
-        setInterval(function(){
-            if(bullet.y > 0){
-                moveBullet(0, -0.5);
-            }
-        }, 70);
+      console.log('keypress working')
+    if (e.preventDefault) {
+      e.preventDefault();
+    } else {
+      e.returnValue = false;
     }
-    
-    };
-    
-    /// update current position on screen
-    
+    var kc = e.keyCode || e.which;
+    keys[kc] = e.type == 'keypress';
+  
+    document.body.appendChild(newBullet);
+  
+});
 
-    moveBullet();
-    /// game loop
-    setInterval(function(){
-    detectBulletMovement();
-    }, 1000/60);
+/// sprite movement update
+const moveBullet = (dx, dy) => {
+
+  var bullet = {
+    x: 47.5,
+    y: 55,
+    speedMultiplier: 1,
+    element: newBullet
+  };
+
+  bullet.x += (dx || 0) * bullet.speedMultiplier;
+  bullet.y += (dy || 0) * bullet.speedMultiplier;
+  bullet.element.style.left = sprite.x + 1.85 + 'vw';
+  bullet.element.style.bottom = 30 + 'px';
+
+
+};
+
+/// sprite control
+const detectBulletMovement = () => {
+  //restrict alien to stay on screen
+  if ((keys[keys.SPACE])) {
+
+    //call function that will decrease the bullet.y
+
+    setInterval(function () {
+      if (bullet.y > 0) {
+        moveBullet(0, -0.5);
+      }
+    }, 70);
+  }
+
+};
+
+/// update current position on screen
+
+
+moveBullet();
+/// game loop
+setInterval(function () {
+  detectBulletMovement();
+}, 1000 / 60);
 
 
 
@@ -102,39 +105,36 @@ let bullet = {
 
 
 /// need to update to use addeventlistener
-document.body.onkeyup = 
-document.body.onkeydown = function(e){
-  
-  
-  if (e.preventDefault) { 
-    e.preventDefault();
-  }
-  else {
-    e.returnValue = false; 
-  }
-  var kc = e.keyCode || e.which;
-  keys[kc] = e.type == 'keydown';
+document.body.onkeyup =
+  document.body.onkeydown = function (e) {
 
-};
+    if (e.preventDefault) {
+      e.preventDefault();
+    } else {
+      e.returnValue = false;
+    }
+    var kc = e.keyCode || e.which;
+    keys[kc] = e.type == 'keydown';
+  };
 
 /// sprite movement update
-const moveSprite = (dx, dy) =>{
+const moveSprite = (dx, dy) => {
 
-sprite.x += (dx||0) * sprite.speedMultiplier;
-sprite.y += (dy||0) * sprite.speedMultiplier;
-sprite.element.style.left = sprite.x + 'vw';
-sprite.element.style.top = sprite.y + 'vw';
+  sprite.x += (dx || 0) * sprite.speedMultiplier;
+  sprite.y += (dy || 0) * sprite.speedMultiplier;
+  sprite.element.style.left = sprite.x + 'vw';
+  sprite.element.style.top = sprite.y + 'vw';
 };
 
 /// sprite control
-const detectSpriteMovement = () =>{
-//restrict alien to stay on screen
-if (( keys[keys.LEFT] ) && (sprite.x > 0)) {
-moveSprite(-0.5, 0);
-}
-if (( keys[keys.RIGHT] ) && (sprite.x<95) ){
-moveSprite(0.5, 0);
-}
+const detectSpriteMovement = () => {
+  //restrict alien to stay on screen
+  if ((keys[keys.LEFT]) && (sprite.x > 0)) {
+    moveSprite(-0.5, 0);
+  }
+  if ((keys[keys.RIGHT]) && (sprite.x < 95)) {
+    moveSprite(0.5, 0);
+  }
 
 };
 
@@ -142,14 +142,12 @@ moveSprite(0.5, 0);
 moveSprite();
 
 /// game loop
-setInterval(function(){
-detectSpriteMovement();
-detectBulletMovement();
-}, 1000/60);
+setInterval(function () {
+  detectSpriteMovement();
+  detectBulletMovement();
+}, 1000 / 60);
 
 
 // space bar = 32,
 // rightKey = 39
 // leftKey = 37
-
-
