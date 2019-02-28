@@ -2,7 +2,7 @@ var spriteContainer = document.getElementById('spriteContainer');
 var alienContainer = document.getElementById('alienContainer')
 var aliens = document.querySelectorAll('.alien');
 var newBullet = document.createElement("div");
-
+var bulletFired = false;
 newBullet.id = "bullet";
 
 // var alienRect = aliens[0].getBoundingClientRect();
@@ -36,14 +36,17 @@ var bullet = {
   element: newBullet
 };
 
-  console.log(newBullet)
-  console.log(bullet.element)
+bullet.element.style.left = sprite.x + 1.85 + 'vw';
+
 
 /// need to update to use addeventlistener
+window.addEventListener('keyup', (e) => {
 
-  window.addEventListener('keyup', (e) => {
+  if (!bulletFired) {
 
-      console.log('keypress working')
+    bulletFired = true;
+    console.log(bulletFired)
+
     if (e.preventDefault) {
       e.preventDefault();
     } else {
@@ -51,26 +54,18 @@ var bullet = {
     }
     var kc = e.keyCode || e.which;
     keys[kc] = e.type == 'keypress';
-  
     document.body.appendChild(newBullet);
-  
+  }
 });
+
 
 /// sprite movement update
 const moveBullet = (dx, dy) => {
 
-  var bullet = {
-    x: 47.5,
-    y: 55,
-    speedMultiplier: 1,
-    element: newBullet
-  };
-
   bullet.x += (dx || 0) * bullet.speedMultiplier;
   bullet.y += (dy || 0) * bullet.speedMultiplier;
-  bullet.element.style.left = sprite.x + 1.85 + 'vw';
-  bullet.element.style.bottom = 30 + 'px';
-
+  bullet.element.style.left = bullet.x + 'vw';
+  bullet.element.style.bottom = bullet.y + 'px';
 
 };
 
@@ -78,16 +73,28 @@ const moveBullet = (dx, dy) => {
 const detectBulletMovement = () => {
   //restrict alien to stay on screen
   if ((keys[keys.SPACE])) {
-
+    if(!bulletFired){
     //call function that will decrease the bullet.y
 
-    setInterval(function () {
-      if (bullet.y > 0) {
-        moveBullet(0, -0.5);
-      }
-    }, 70);
-  }
+    var bulletMovement = setInterval(bulletFire, 50);
 
+    function bulletFire() {
+
+      if (bullet.y < 650) {
+
+        moveBullet(0, 0.5);
+      } else {
+        clearInterval(bulletMovement);
+        
+        bulletFired= false;
+
+      }
+    }
+
+    bullet.y = 55
+
+  }
+  }
 };
 
 /// update current position on screen
@@ -96,8 +103,8 @@ const detectBulletMovement = () => {
 moveBullet();
 /// game loop
 setInterval(function () {
-  detectBulletMovement();
-}, 1000 / 60);
+    detectBulletMovement();
+}, 1000 / 600);
 
 
 
