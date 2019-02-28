@@ -26,7 +26,7 @@ class alienMatrix {
 }
 
 let invasion = [];
-let alienContainer = document.getElementById('alienContainer');
+let aliensContainer = document.getElementById('alienContainer');
 const alienZero = new alienMatrix(93, 156);
 invasion.push(alienZero);
 
@@ -50,7 +50,7 @@ const alienRowGenerator = () => {
     
    
     
-    alienContainer.appendChild( alienDeployed);
+    aliensContainer.appendChild( alienDeployed);
     
   }
 };

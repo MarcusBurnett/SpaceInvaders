@@ -19,6 +19,16 @@ body {
     height: 3.3vw;
 }
 
+#bullet {
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    bottom: 6vh;
+    color: aliceblue;
+    display: block;
+    
+}
+
 .life {
     width: 5vw;
     height: 3.3vw;
@@ -110,4 +120,13 @@ body {
     height: 10vw;    
     background-color: #33FF00;
     border-radius: 1rem;
+}
+
+#bullet {
+    position: absolute;
+    width: 0.3vw;
+    height: 1vh;
+    background: white;
+    z-index: -1;
+    /* display: none; */
 }
