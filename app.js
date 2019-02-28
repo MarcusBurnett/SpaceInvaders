@@ -74,7 +74,7 @@ const detectBulletMovement = () => {
     if (!bulletFired) {
       //call function that will decrease the bullet.y
       var flagFired = false;
-      if(!flagFired) {
+      if (!flagFired) {
         var bulletMovement = setInterval(bulletFire, 1);
       }
 
@@ -88,7 +88,7 @@ const detectBulletMovement = () => {
           bulletFired = false;
           flagFired = false;
         }
-        
+
       }
 
       bullet.y = 55
@@ -104,7 +104,7 @@ moveBullet();
 /// game loop
 setInterval(function () {
   detectBulletMovement();
-}, 80);
+}, 70);
 
 
 
