@@ -36,8 +36,6 @@ var bullet = {
   element: newBullet
 };
 
-bullet.element.style.left = sprite.x + 1.85 + 'vw';
-
 
 /// need to update to use addeventlistener
 window.addEventListener('keyup', (e) => {
@@ -64,7 +62,7 @@ const moveBullet = (dx, dy) => {
 
   bullet.x += (dx || 0) * bullet.speedMultiplier;
   bullet.y += (dy || 0) * bullet.speedMultiplier;
-  bullet.element.style.left = bullet.x + 'vw';
+  bullet.element.style.left = sprite.x + 1.85 + 'vw';
   bullet.element.style.bottom = bullet.y + 'px';
 
 };
