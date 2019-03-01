@@ -5,14 +5,13 @@ var newBullet = document.createElement("div");
 var bulletFired = false;
 newBullet.id = "bullet";
 
-var alienRect = aliens[0].getBoundingClientRect();
-// var bulletRect = bullet.getBoundingClientRect();
+
+// var alienRect = aliens[0].getBoundingClientRect();
 // var bulletBottom = bulletStyle.getPropertyValue('bottom');
 
 // console.log(bullet.getBoundingClientRect().top);
 // console.log(bullet.getBoundingClientRect().bottom);
-console.log(alienRect.top, alienRect.right, alienRect.bottom, alienRect.left);
-// console.log(bulletRect.top, bulletRect.right, bulletRect.bottom, bulletRect.left);
+// console.log(alienRect.top, alienRect.right, alienRect.bottom, alienRect.left);
 
 /// store key codes and currently pressed ones
 var keys = {};
@@ -81,15 +80,25 @@ const detectBulletMovement = () => {
       function bulletFire() {
 
         if (bullet.y < 650) {
-
+          console.log(bullet.element.getBoundingClientRect().bottom);
           moveBullet(0, 0.5);
+          if (bullet.element.getBoundingClientRect().bottom < aliens[0].getBoundingClientRect().bottom && bullet.element.getBoundingClientRect().top > aliens[0].getBoundingClientRect().top && bullet.element.getBoundingClientRect().left > aliens[0].getBoundingClientRect().left && bullet.element.getBoundingClientRect().right < aliens[0].getBoundingClientRect().right){
+          clearInterval(bulletMovement);
+          bulletFired = false;
+          bullet.element.style.display = 'none';
+          aliens[0].style.backgroundImage = 'url(imgs/explode.png)';
+          // aliens[0].style.display = 'none';
+
+
+          }
         } else {
           clearInterval(bulletMovement);
           bulletFired = false;
         }
 
       }
-      bullet.y = 55
+      bullet.element.style.display = 'block';
+      bullet.y = 55;
       bullet.element.style.left = sprite.x + 1.85 + 'vw';
     }
   }
@@ -102,9 +111,12 @@ moveBullet();
 /// game loop
 setInterval(function () {
   detectBulletMovement();
-}, 20);
+}, 13);
 
+document.addEventListener('click', function(){
+  console.log(aliens[0].getBoundingClientRect().bottom);
 
+})
 
 /// need to update to use addeventlistener
 document.body.onkeyup =
