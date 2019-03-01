@@ -37,6 +37,7 @@ var bullet = {
 
 
 /// need to update to use addeventlistener
+document.body.onkeyup =
 window.addEventListener('keyup', (e) => {
 
   if (event.keyCode === 32 && !bulletFired) {
@@ -80,17 +81,23 @@ const detectBulletMovement = () => {
       function bulletFire() {
 
         if (bullet.y < 650) {
-          console.log(bullet.element.getBoundingClientRect().bottom);
-          moveBullet(0, 0.5);
-          if (bullet.element.getBoundingClientRect().bottom < aliens[0].getBoundingClientRect().bottom && bullet.element.getBoundingClientRect().top > aliens[0].getBoundingClientRect().top && bullet.element.getBoundingClientRect().left > aliens[0].getBoundingClientRect().left && bullet.element.getBoundingClientRect().right < aliens[0].getBoundingClientRect().right){
+          
+          for(var i = 0; i < aliens.length; i++){
+          let alienStyle = window.getComputedStyle(aliens[i]);
+
+            if(alienStyle.getPropertyValue('background-image') !== 'none'){
+          if (bullet.element.getBoundingClientRect().bottom < aliens[i].getBoundingClientRect().bottom && bullet.element.getBoundingClientRect().top > aliens[i].getBoundingClientRect().top && bullet.element.getBoundingClientRect().left > aliens[i].getBoundingClientRect().left && bullet.element.getBoundingClientRect().right < aliens[i].getBoundingClientRect().right){
           clearInterval(bulletMovement);
           bulletFired = false;
           bullet.element.style.display = 'none';
-          aliens[0].style.backgroundImage = 'url(imgs/explode.png)';
-          // aliens[0].style.display = 'none';
+          aliens[i].classList.add('alienHit');
+          console.log(alienStyle.getPropertyValue('background-image'))
 
-
+          // aliens[i].style.backgroundImage = 'url(imgs/explode.png)';
+          // setTimeout(function(){ aliens[i].style.display = 'none'; }, 500);
           }
+        }
+          }moveBullet(0, 0.5);
         } else {
           clearInterval(bulletMovement);
           bulletFired = false;

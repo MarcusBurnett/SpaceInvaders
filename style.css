@@ -76,14 +76,18 @@ body {
     flex-wrap: wrap;
     height: 40vh;
     width: 70vw;
-    position: relative;
+    position: absolute;
+    bottom: 250px;
+    left: 0;
+    animation: alienSideMove 15s linear infinite;
+
 }
 
 .alien {
     width: 4vw;
     height: 5vh;
-    position: absolute;
-    bottom: 400px;
+    margin: 0 1vw;
+    transition: all 0.3s;
 }
 
 .a1 {
@@ -123,4 +127,14 @@ body {
     background: white;
     z-index: -1;
     /* display: none; */
+}
+
+@keyframes alienSideMove {
+    0% {left: 0}
+    50% {left: 30vw};
+    100% {left: 0};
+}
+
+.alienHit {
+    background: none;
 }
