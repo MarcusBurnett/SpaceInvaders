@@ -131,10 +131,15 @@ body {
 
 @keyframes alienSideMove {
     0% {left: 0}
-    50% {left: 30vw};
+    50% {left: 30vw}
     100% {left: 0};
 }
 
 .alienHit {
-    background: none;
+    animation: alienHit 0.5s linear forwards;
+}
+
+@keyframes alienHit {
+    5% {background-image: url(imgs/explode.png)}
+    100% {background: none};
 }

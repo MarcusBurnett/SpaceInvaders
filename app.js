@@ -2,16 +2,10 @@ var spriteContainer = document.getElementById('spriteContainer');
 var alienContainer = document.getElementById('alienContainer')
 var aliens = document.querySelectorAll('.alien');
 var newBullet = document.createElement("div");
+var scoreDisplay = document.getElementById('score');
+var score = 0;
 var bulletFired = false;
 newBullet.id = "bullet";
-
-
-// var alienRect = aliens[0].getBoundingClientRect();
-// var bulletBottom = bulletStyle.getPropertyValue('bottom');
-
-// console.log(bullet.getBoundingClientRect().top);
-// console.log(bullet.getBoundingClientRect().bottom);
-// console.log(alienRect.top, alienRect.right, alienRect.bottom, alienRect.left);
 
 /// store key codes and currently pressed ones
 var keys = {};
@@ -37,7 +31,7 @@ var bullet = {
 
 
 /// need to update to use addeventlistener
-document.body.onkeyup =
+document.body.onkeydown =
 window.addEventListener('keyup', (e) => {
 
   if (event.keyCode === 32 && !bulletFired) {
@@ -91,7 +85,8 @@ const detectBulletMovement = () => {
           bulletFired = false;
           bullet.element.style.display = 'none';
           aliens[i].classList.add('alienHit');
-          console.log(alienStyle.getPropertyValue('background-image'))
+          score += 10;
+          scoreDisplay.textContent = score;
 
           // aliens[i].style.backgroundImage = 'url(imgs/explode.png)';
           // setTimeout(function(){ aliens[i].style.display = 'none'; }, 500);
