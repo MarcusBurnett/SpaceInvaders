@@ -13,6 +13,14 @@ body {
     overflow: hidden
 }
 
+#levelComplete {
+    position: absolute;
+    display: none;
+    font-size: 4rem;
+    top: 30vh;
+    animation: levelComplete 2s forwards;
+}
+
 
 #spriteContainer {
     position:relative;
@@ -63,7 +71,7 @@ body {
     width: 90vw;
     margin-left: 5vw;
     margin-right: 5vw;
-    margin-bottom: 5vh;
+    /* margin-bottom: 5vh; */
     margin-top: 50vh;
     display: flex;
     justify-content: space-around;
@@ -74,8 +82,8 @@ body {
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
-    height: 40vh;
-    width: 70vw;
+    height: 30vh;
+    width: 60vw;
     position: absolute;
     bottom: 250px;
     left: 0;
@@ -84,10 +92,19 @@ body {
 }
 
 .alien {
-    width: 4vw;
-    height: 5vh;
+    width: 3vw;
+    height: 4vh;
     margin: 0 1vw;
     transition: all 0.3s;
+}
+
+#alienX {
+    background: url(imgs/Alien3.png);
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    left: -5vw;
+    top: 20vh;
 }
 
 .a1 {
@@ -115,7 +132,7 @@ body {
 
 .shield {
     width: 12vw;
-    height: 8vw;    
+    height: 6vw;    
     background-color: #33FF00;
     border-radius: 1rem;
 }
@@ -136,10 +153,25 @@ body {
 }
 
 .alienHit {
-    animation: alienHit 0.5s linear forwards;
+    animation: alienHit 0.3s linear forwards;
 }
+
+alienXMove {
+    animation: alienX 10s linear;
+}
+
 
 @keyframes alienHit {
     5% {background-image: url(imgs/explode.png)}
     100% {background: none};
+}
+
+@keyframes levelComplete {
+    0% {color: black}
+    100% {color: white};
+}
+
+@keyframes alienX {
+    0% {left: -5vw}
+    100% {left: 105vw}
 }

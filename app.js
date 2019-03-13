@@ -2,10 +2,27 @@ var spriteContainer = document.getElementById('spriteContainer');
 var alienContainer = document.getElementById('alienContainer')
 var aliens = document.querySelectorAll('.alien');
 var newBullet = document.createElement("div");
+var alienBullet1 = document.createElement("div");
+var alienBullet2 = document.createElement("div");
+var alienBullet3 = document.createElement("div");
+var alienBullet4 = document.createElement("div");
+var alienBullet5 = document.createElement("div");
 var scoreDisplay = document.getElementById('score');
+var levelCompleteMsg = document.getElementById('levelComplete');
+var shields = document.querySelectorAll('.shield');
 var score = 0;
+var alienNum = 44;
+var aliensHit = 0;
 var bulletFired = false;
+var levelComplete = false;
 newBullet.id = "bullet";
+alienBullet1.id = "alienBullet1"
+alienBullet2.id = "alienBullet2"
+alienBullet3.id = "alienBullet3"
+alienBullet4.id = "alienBullet4"
+alienBullet5.id = "alienBullet5"
+
+newBullet.y = 55;
 
 /// store key codes and currently pressed ones
 var keys = {};
@@ -25,36 +42,31 @@ let sprite = {
 var bullet = {
   x: 47.5,
   y: 55,
-  speedMultiplier: 1,
+  speedMultiplier: 3,
   element: newBullet
 };
 
+  document.addEventListener('keyup', (e) => {
 
-/// need to update to use addeventlistener
-document.body.onkeydown =
-window.addEventListener('keyup', (e) => {
+    if (event.keyCode === 32 && !bulletFired && !levelComplete) {
 
-  if (event.keyCode === 32 && !bulletFired) {
+      bulletFired = true;
+      bullet.element.style.left = sprite.x + 1.85 + 'vw';
+      bullet.element.style.bottom = bullet.y + 'px';
 
-    bulletFired = true;
-    console.log(bulletFired)
-    bullet.element.style.left = sprite.x + 1.85 + 'vw';
-
-    if (e.preventDefault) {
-      e.preventDefault();
-    } else {
-      e.returnValue = false;
+      if (e.preventDefault) {
+        e.preventDefault();
+      } else {
+        e.returnValue = false;
+      }
+      var kc = e.keyCode || e.which;
+      keys[kc] = e.type == 'keyup';
+      document.body.appendChild(newBullet);
     }
-    var kc = e.keyCode || e.which;
-    keys[kc] = e.type == 'keypress';
-    document.body.appendChild(newBullet);
-  }
-});
+  });
 
 
-/// sprite movement update
 const moveBullet = (dx, dy) => {
-
 
   bullet.x += (dx || 0) * bullet.speedMultiplier;
   bullet.y += (dy || 0) * bullet.speedMultiplier;
@@ -62,63 +74,29 @@ const moveBullet = (dx, dy) => {
 
 };
 
-/// sprite control
+
 const detectBulletMovement = () => {
-  //restrict alien to stay on screen
   if ((keys[keys.SPACE])) {
-    if (!bulletFired) {
-      //call function that will decrease the bullet.y
+    if (!bulletFired && !levelComplete) {
 
 
-      var bulletMovement = setInterval(bulletFire, 1);
+      
+bulletFire(bulletMovement);
 
-      function bulletFire() {
-
-        if (bullet.y < 650) {
-          
-          for(var i = 0; i < aliens.length; i++){
-          let alienStyle = window.getComputedStyle(aliens[i]);
-
-            if(alienStyle.getPropertyValue('background-image') !== 'none'){
-          if (bullet.element.getBoundingClientRect().bottom < aliens[i].getBoundingClientRect().bottom && bullet.element.getBoundingClientRect().top > aliens[i].getBoundingClientRect().top && bullet.element.getBoundingClientRect().left > aliens[i].getBoundingClientRect().left && bullet.element.getBoundingClientRect().right < aliens[i].getBoundingClientRect().right){
-          clearInterval(bulletMovement);
-          bulletFired = false;
-          bullet.element.style.display = 'none';
-          aliens[i].classList.add('alienHit');
-          score += 10;
-          scoreDisplay.textContent = score;
-
-          // aliens[i].style.backgroundImage = 'url(imgs/explode.png)';
-          // setTimeout(function(){ aliens[i].style.display = 'none'; }, 500);
-          }
-        }
-          }moveBullet(0, 0.5);
-        } else {
-          clearInterval(bulletMovement);
-          bulletFired = false;
-        }
-
-      }
+      bulletFired = false;
       bullet.element.style.display = 'block';
       bullet.y = 55;
       bullet.element.style.left = sprite.x + 1.85 + 'vw';
     }
   }
+
 };
-
-/// update current position on screen
-
 
 moveBullet();
 /// game loop
 setInterval(function () {
   detectBulletMovement();
-}, 13);
-
-document.addEventListener('click', function(){
-  console.log(aliens[0].getBoundingClientRect().bottom);
-
-})
+}, 10);
 
 /// need to update to use addeventlistener
 document.body.onkeyup =
@@ -160,9 +138,139 @@ moveSprite();
 /// game loop
 setInterval(function () {
   detectSpriteMovement();
-}, 1000 / 60);
+}, 1000/60);
 
 
 // space bar = 32,
 // rightKey = 39
 // leftKey = 37
+var bulletMovement = setInterval(bulletFire, 5);
+function bulletFire(bulletMovement) {
+  if (aliensHit < alienNum ) {
+    if (bullet.y < 650) {
+      sprite.element.style.top = sprite.y + 'vw';
+
+      shieldHit();
+      alienHit();
+      if(bulletFired){
+      moveBullet(0, 0.5);
+      console.log("fire");
+      }
+      
+    } else {
+      clearInterval(bulletMovement);
+      bulletFired = false;
+      bullet.y = 55;
+    }
+  } 
+else {
+    levelComplete = true;
+    levelCompleteMsg.style.display = 'block';
+  }
+}
+
+function alienHit (bulletMovement){
+  for (var i = 0; i < aliens.length; i++) {
+    let alienStyle = window.getComputedStyle(aliens[i]);
+
+    if (alienStyle.getPropertyValue('background-image') !== 'none') {
+      if (bullet.element.getBoundingClientRect().bottom < aliens[i].getBoundingClientRect().bottom && bullet.element.getBoundingClientRect().top > aliens[i].getBoundingClientRect().top && bullet.element.getBoundingClientRect().left > aliens[i].getBoundingClientRect().left && bullet.element.getBoundingClientRect().right < aliens[i].getBoundingClientRect().right) {
+        clearInterval(bulletMovement);
+        bullet.y = 55;
+        bullet.element.style.display = 'none';        
+        document.body.removeChild(newBullet);
+        aliens[i].classList.add('alienHit');
+        bulletFired = false;
+        score += 10;
+        scoreDisplay.textContent = score;
+        aliensHit++;
+      }
+    }
+  }
+}
+
+function shieldHit(bulletMovement){
+  for(var i = 0; i < shields.length; i++){
+    if (bullet.element.getBoundingClientRect().bottom < shields[i].getBoundingClientRect().bottom && bullet.element.getBoundingClientRect().top > shields[i].getBoundingClientRect().top && bullet.element.getBoundingClientRect().left > shields[i].getBoundingClientRect().left && bullet.element.getBoundingClientRect().right < shields[i].getBoundingClientRect().right) {
+      clearInterval(bulletMovement);
+      bulletFired = false;
+      bullet.y = 55;
+      document.body.removeChild(newBullet);
+      bullet.element.style.display = 'none';
+    }
+  }
+}
+
+
+// document.addEventListener('keyup', (e) => {
+
+//   if (event.keyCode === 32 && !bulletFired && !levelComplete) {
+
+//     bulletFired = true;
+//     bullet.element.style.left = sprite.x + 1.85 + 'vw';
+//     bullet.element.style.bottom = bullet.y + 'px';
+
+//     if (e.preventDefault) {
+//       e.preventDefault();
+//     } else {
+//       e.returnValue = false;
+//     }
+//     var kc = e.keyCode || e.which;
+//     keys[kc] = e.type == 'keyup';
+//     document.body.appendChild(newBullet);
+//   }
+// });
+
+
+// const moveBullet = (dx, dy) => {
+
+// bullet.x += (dx || 0) * bullet.speedMultiplier;
+// bullet.y += (dy || 0) * bullet.speedMultiplier;
+// bullet.element.style.bottom = bullet.y + 'px';
+
+// };
+
+
+// const detectBulletMovement = () => {
+// if ((keys[keys.SPACE])) {
+//   if (!bulletFired && !levelComplete) {
+
+
+    
+// bulletFire(bulletMovement);
+
+//     bulletFired = false;
+//     bullet.element.style.display = 'block';
+//     bullet.y = 55;
+//     bullet.element.style.left = sprite.x + 1.85 + 'vw';
+//   }
+// }
+
+// };
+
+// moveBullet();
+// /// game loop
+// setInterval(function () {
+// detectBulletMovement();
+// }, 10);
+
+// var alienBulletMovement = setInterval(alienBulletFire, 5);
+
+// function alienBulletFire(alienBulletMovement) {
+//   if (aliensHit < alienNum ) {
+//     if (bullet.y < 650) {
+//       sprite.element.style.top = sprite.y + 'vw';
+
+//       shieldHit();
+//       alienHit();
+//       if(bulletFired){
+//       moveBullet(0, 0.5);
+//       console.log("fire");
+//       }
+      
+//     } else {
+//       clearInterval(alienBulletMovement);
+//       bullet.y = 55;
+//     }
+//   } 
+// }
